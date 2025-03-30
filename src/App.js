@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import CrossFader from './components/CrossFader';
 import Scratching from './components/Scratching';
+import TrackDeck from './components/TrackDeck';
 import { Howl } from 'howler'; // Assuming you're using Howler.js for audio
 
 function App() {
@@ -30,6 +31,8 @@ function App() {
 
   return (
     <div className="dj-board">
+      <TrackDeck track={track1} />
+      <TrackDeck track={track2} />
       <CrossFader track1={track1} track2={track2} />
       <Scratching track={track1} scratchbackSound={scratchbackSound} />
     </div>
