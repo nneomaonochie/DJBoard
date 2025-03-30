@@ -1,16 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-function Scratching({ track }) {
+function Scratching({ track, scratchbackSound }) {
   const [scratching, setScratching] = useState(false);
+
+  useEffect(() => {
+    let interval;
+    if (scratching) {
+      interval = setInterval(() => {
+        track.sound.seek(track.sound.seek() - 0.1); // Rewind the track
+      }, 100);
+      scratchbackSound.play(); // Play scratchback noise
+    } else {
+      clearInterval(interval);
+      scratchbackSound.stop(); // Stop scratchback noise
+    }
+    return () => clearInterval(interval);
+  }, [scratching, track.sound, scratchbackSound]);
 
   const startScratching = () => {
     setScratching(true);
-    track.sound.rate(0.5); // Slow down for scratching effect
   };
 
   const stopScratching = () => {
     setScratching(false);
-    track.sound.rate(1); // Reset to normal speed
   };
 
   return (
