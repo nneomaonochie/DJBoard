@@ -7,9 +7,21 @@ function RotatingRecord({ track }) {
   const [rotation, setRotation] = useState(0); // Current rotation in degrees
   const [lastSeekTime, setLastSeekTime] = useState(0); // Throttle seek calls
   const [animationFrameId, setAnimationFrameId] = useState(null); // To manage smooth updates during drag
+  const [glowColor, setGlowColor] = useState('rgba(0, 255, 255, 0.8)'); // Default glow color
+
+  // Function to generate a random glow color
+  const getRandomGlowColor = () => {
+    const r = Math.floor(Math.random() * 256); // Random red value
+    const g = Math.floor(Math.random() * 256); // Random green value
+    const b = Math.floor(Math.random() * 256); // Random blue value
+    return `rgba(${r}, ${g}, ${b}, 0.8)`; // Return a random RGB color with an alpha value of 0.8
+  };
 
   useEffect(() => {
-    const handlePlay = () => setIsPlaying(true);
+    const handlePlay = () => {
+      setIsPlaying(true);
+      setGlowColor(getRandomGlowColor()); // Set a random glow color when track plays
+    };
     const handlePause = () => setIsPlaying(false);
     const handleStop = () => setIsPlaying(false);
 
@@ -22,7 +34,7 @@ function RotatingRecord({ track }) {
       track.sound.off('pause', handlePause);
       track.sound.off('stop', handleStop);
     };
-  }, [track.sound]);
+  }, [track.sound]); // Re-run the effect if track.sound changes
 
   // Start dragging
   const startDrag = (e) => {
@@ -85,7 +97,7 @@ function RotatingRecord({ track }) {
         cursor: isDragging ? 'grabbing' : 'pointer', // Change cursor while dragging
         transform: `rotate(${rotation}deg)`, // Rotate the record based on drag
         transition: isDragging ? 'none' : 'transform 0.5s ease', // Smooth transition for spinning when not dragging
-        boxShadow: isPlaying && !isDragging ? '0 0 15px 5px rgba(0, 255, 255, 0.8)' : 'none', // Glowing effect when playing
+        boxShadow: isPlaying && !isDragging ? `0 0 15px 5px ${glowColor}` : 'none', // Glowing effect with random color
       }}
     >
       <img src="/record.jpeg" alt="Record" />
