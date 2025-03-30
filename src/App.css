@@ -49,7 +49,6 @@
   color: white; /* Optional: to ensure text is readable */
 }
 
-
 .track-container {
   display: flex;
   flex-direction: column; /* Arrange items in a column */
@@ -147,17 +146,13 @@
     transform: rotate(360deg);
   }
 }
-  
-  .record:hover {
-    opacity: 0.9; 
-  }
-  
 
-
-*/
+.record:hover {
+  opacity: 0.9; 
+}
 
 .track-list {
-  grid-column: 2 / 3; /* Place in the middle column */
+  grid-column: 1 / 4; /* Span across all three columns */
   margin-top: auto; /* Pushes the TrackList to the bottom */
   padding: 10px;
   background-color: #333; /* Optional: Add some styling */
