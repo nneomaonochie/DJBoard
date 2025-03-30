@@ -64,16 +64,14 @@ function App() {
       <div className="track-container left">
         <TrackDeck track={selectedTracks[0]}/>
         <Scratching track={selectedTracks[0]} scratchbackSound={scratchbackSound} />
-        <div className="buttons-row">
-          <Looping track={selectedTracks[0]} />
-        </div>
       </div>
       <div className="track-container right">
         <TrackDeck track={selectedTracks[1]} />
         <Scratching track={selectedTracks[1]} scratchbackSound={scratchbackSound} />
-        <div className="buttons-row">
-          <Looping track={selectedTracks[1]} />
-        </div>
+      </div>
+      <div className="looping-container">
+        <Looping track={selectedTracks[0]} />
+        <Looping track={selectedTracks[1]} />
       </div>
       <CrossFader className="crossfader" track1={selectedTracks[0]} track2={selectedTracks[1]} />
       <TrackList tracks={tracks} onSelectTrack={handleSelectTrack} /> {/* Move TrackList here */}

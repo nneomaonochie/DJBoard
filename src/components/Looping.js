@@ -32,12 +32,14 @@ function Looping({ track }) {
 
   return (
     <div className="looping">
-      <button onClick={setLoopStartTime}>Set Loop Start</button>
+      <button onClick={setLoopStartTime} style={{ backgroundColor: 'grey', color: 'white', marginRight: '10px', marginBottom: '10px' }}>
+      Set Loop Start
+    </button>
       <button
         onClick={toggleLoop}
         style={{ backgroundColor: looping ? 'green' : 'gray' }}
       >
-        Loop
+        <i className="fas fa-sync"></i> {/* Font Awesome loop icon */}
       </button>
     </div>
   );
