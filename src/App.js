@@ -1,30 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import CrossFader from './components/CrossFader';
 import Scratching from './components/Scratching';
 import TrackDeck from './components/TrackDeck';
 import Looping from './components/Looping';
+import TrackList from './components/TrackList';
 import { Howl } from 'howler'; // Assuming you're using Howler.js for audio
 
 function App() {
-  // Initialize track1 and track2 with Howler.js
-  const track1 = {
-    title: 'Track 1',
-    sound: new Howl({
-      src: ['/audio/SexyBack.mp3'],
-      volume: 1,
-    }),
+  const tracks = [
+    {
+      title: 'Track 1',
+      sound: new Howl({
+        src: ['/audio/SexyBack.mp3'],
+        volume: 1,
+      }),
+    },
+    {
+      title: 'Track 2',
+      sound: new Howl({
+        src: ['/audio/weFoundLove.mp3'],
+        volume: 1,
+      }),
+    },
+    {
+      title: 'Track 3',
+      sound: new Howl({
+        src: ['/audio/anotherTrack.mp3'],
+        volume: 1,
+      }),
+    },
+  ];
+
+  const [selectedTracks, setSelectedTracks] = useState([tracks[0], tracks[1]]);
+
+  const handleSelectTrack = (track, index) => {
+    const updatedTracks = [...selectedTracks];
+    updatedTracks[index] = track;
+    setSelectedTracks(updatedTracks);
   };
 
-  const track2 = {
-    title: 'Track 2',
-    sound: new Howl({
-      src: ['/audio/weFoundLove.mp3'],
-      volume: 1,
-    }),
-  };
-
-  // Initialize scratchbackSound with Howler.js
   const scratchbackSound = new Howl({
     src: ['audio/scratchback.mp3'],
     volume: 1,
@@ -32,21 +47,22 @@ function App() {
 
   return (
     <div className="dj-board">
+      <TrackList tracks={tracks} onSelectTrack={handleSelectTrack} />
       <div className="track-container left">
-        <TrackDeck track={track1} />
+        <TrackDeck track={selectedTracks[0]} />
         <div className="buttons-row">
-          <Scratching track={track1} scratchbackSound={scratchbackSound} />
-          <Looping track={track1} />
+          <Scratching track={selectedTracks[0]} scratchbackSound={scratchbackSound} />
+          <Looping track={selectedTracks[0]} />
         </div>
       </div>
       <div className="track-container right">
-        <TrackDeck track={track2} />
+        <TrackDeck track={selectedTracks[1]} />
         <div className="buttons-row">
-          <Scratching track={track2} scratchbackSound={scratchbackSound} />
-          <Looping track={track2} />
+          <Scratching track={selectedTracks[1]} scratchbackSound={scratchbackSound} />
+          <Looping track={selectedTracks[1]} />
         </div>
       </div>
-      <CrossFader className="crossfader" track1={track1} track2={track2} />
+      <CrossFader className="crossfader" track1={selectedTracks[0]} track2={selectedTracks[1]} />
     </div>
   );
 }
