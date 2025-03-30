@@ -35,7 +35,7 @@ import React, { useState, useEffect } from 'react';
 function RotatingRecord({ track }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
-  const [startAngle, setStartAngle] = useState(0); // To track initial angle
+  const [startAngle, setStartAngle] = useState(0); // To track initial angle of the mouse
   const [rotation, setRotation] = useState(0); // Track rotation of the record (in degrees)
 
   useEffect(() => {
@@ -61,7 +61,7 @@ function RotatingRecord({ track }) {
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
     const angle = Math.atan2(e.clientY - centerY, e.clientX - centerX); // Initial angle of mouse position
-    setStartAngle(angle);
+    setStartAngle(angle); // Set initial angle
   };
 
   // Track mouse movement while dragging
@@ -73,16 +73,17 @@ function RotatingRecord({ track }) {
     const centerY = rect.top + rect.height / 2;
     const angle = Math.atan2(e.clientY - centerY, e.clientX - centerX); // Current angle of mouse position
 
-    const deltaAngle = angle - startAngle; // Angle difference (drag direction)
-    setRotation(rotation + deltaAngle); // Update rotation
+    const deltaAngle = angle - startAngle; // Calculate difference in angle (clockwise or counter-clockwise)
+    const rotationIncrement = deltaAngle * (180 / Math.PI); // Convert radians to degrees
+    setRotation(prevRotation => prevRotation + rotationIncrement); // Increment rotation value
 
     const duration = track.sound.duration(); // Get the track's total duration
-    const rotationDegrees = rotation * (180 / Math.PI); // Convert radian to degrees
+    const rotationDegrees = rotation + rotationIncrement; // Current degrees of rotation
 
     const newSeek = (duration * rotationDegrees) / 360; // Calculate new seek position for the track
     track.sound.seek(newSeek); // Update audio position based on the drag
 
-    setStartAngle(angle); // Update start angle for next movement
+    setStartAngle(angle); // Update the start angle for next movement
   };
 
   // Stop dragging when mouse is up or leaves the record
@@ -92,7 +93,7 @@ function RotatingRecord({ track }) {
 
   return (
     <div
-      className={`record ${isPlaying ? 'spinning' : ''}`}
+      className={`record ${isPlaying && !isDragging ? 'spinning' : ''}`} // Add spinning only if playing and not dragging
       onMouseDown={startDrag} // Start drag when mouse is pressed
       onMouseMove={onDrag} // Track mouse movement while dragging
       onMouseUp={stopDrag} // Stop drag when mouse is released
