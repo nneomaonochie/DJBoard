@@ -10,7 +10,7 @@ function App() {
   const track1 = {
     title: 'Track 1',
     sound: new Howl({
-      src: ['/audio/sexyBack.mp3'],
+      src: ['/audio/SexyBack.mp3'],
       volume: 1,
     }),
   };
