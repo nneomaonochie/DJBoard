@@ -43,7 +43,7 @@
   grid-template-columns: 1fr 1fr 1fr; /* Divide the screen into three equal parts */
   align-items: flex-start;
   height: 100vh; /* Optional: to make sure the grid takes the full height of the viewport */
-  background-color: #39FF14; /* Dark grey */
+  background-color: #333; /* Dark grey */
   color: white; /* Optional: to ensure text is readable */
 }
 
