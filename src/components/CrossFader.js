@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-function Crossfader({ track1, track2 }) {
+function CrossFader({ track1, track2 }) {
   const [position, setPosition] = useState(50);
 
   const crossfade = () => {
-    const volume1 = 1 - position / 100;
-    const volume2 = position / 100;
-    track1.sound.volume(volume1);
-    track2.sound.volume(volume2);
+    if (track1 && track1.sound && track2 && track2.sound) {
+      const volume1 = 1 - position / 100;
+      const volume2 = position / 100;
+      track1.sound.volume(volume1);
+      track2.sound.volume(volume2);
+    }
   };
 
   useEffect(() => {
@@ -28,4 +30,4 @@ function Crossfader({ track1, track2 }) {
   );
 }
 
-export default Crossfader;
+export default CrossFader;

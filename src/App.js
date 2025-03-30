@@ -1,8 +1,13 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
-import './components/Play'
+import CrossFader from './components/CrossFader';
+import Scratching from './components/Scratching';
+import TrackDeck from './components/TrackDeck';
+import Looping from './components/Looping';
+import { Howl } from 'howler'; // Assuming you're using Howler.js for audio
 
 function App() {
+<<<<<<< HEAD
 
   // asks user to drop in a music file, called userFile
 
@@ -10,10 +15,47 @@ function App() {
   return (
     <div className="App">
       <Play/>
+=======
+  // Initialize track1 and track2 with Howler.js
+  const track1 = {
+    title: 'Track 1',
+    sound: new Howl({
+      src: ['/audio/SexyBack.mp3'],
+      volume: 1,
+    }),
+  };
+>>>>>>> origin/main
 
+  const track2 = {
+    title: 'Track 2',
+    sound: new Howl({
+      src: ['/audio/weFoundLove.mp3'],
+      volume: 1,
+    }),
+  };
+
+  // Initialize scratchbackSound with Howler.js
+  const scratchbackSound = new Howl({
+    src: ['audio/scratchback.mp3'],
+    volume: 1,
+  });
+
+  return (
+    <div className="dj-board">
+      <TrackDeck track={track1} />
+      <TrackDeck track={track2} />
+      <CrossFader track1={track1} track2={track2} />
+      <Scratching track={track1} scratchbackSound={scratchbackSound} />
+      <Scratching track={track2} scratchbackSound={scratchbackSound} />
+      <Looping track={track1} />
+      <Looping track={track2} />
     </div>
   );
 }
 
+<<<<<<< HEAD
 // <AudioPlayer musicFile={userFile} />
 export default App;
+=======
+export default App;
+>>>>>>> origin/main
