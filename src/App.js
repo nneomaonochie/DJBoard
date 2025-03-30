@@ -1,24 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
-import './components/Play'
 import React from 'react';
-import CrossFader from './components/CrossFader.js';
-import Scratching from './components/Scratching.js';
+import './App.css';
+import CrossFader from './components/CrossFader';
+import Scratching from './components/Scratching';
+import { Howl } from 'howler'; // Assuming you're using Howler.js for audio
 
 function App() {
-  const track1 = { title: 'Track 1', audioFile: 'track1.mp3' };
-  const track2 = { title: 'Track 2', audioFile: 'track2.mp3' };
+  // Initialize track1 and track2 with Howler.js
+  const track1 = {
+    title: 'Track 1',
+    sound: new Howl({
+      src: ['./sexyBack.mp3'],
+      volume: 1,
+    }),
+  };
+
+  const track2 = {
+    title: 'Track 2',
+    sound: new Howl({
+      src: ['path/to/track2.mp3'],
+      volume: 1,
+    }),
+  };
+
+  // Initialize scratchbackSound with Howler.js
+  const scratchbackSound = new Howl({
+    src: ['path/to/scratchback.mp3'],
+    volume: 1,
+  });
 
   return (
     <div className="dj-board">
-      <TrackDeck track={track1} />
-      <Waveform audioFile={track1.audioFile} />
-      <TrackDeck track={track2} />
-      <Waveform audioFile={track2.audioFile} />
-      <DJControls />
-      <Crossfader track1={track1} track2={track2} />
-      <Looping track={track1} />
-      <Scratching track={track1} />
+      <CrossFader track1={track1} track2={track2} />
+      <Scratching track={track1} scratchbackSound={scratchbackSound} />
     </div>
   );
 }

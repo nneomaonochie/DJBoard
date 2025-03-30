@@ -6,13 +6,19 @@ function Scratching({ track, scratchbackSound }) {
   useEffect(() => {
     let interval;
     if (scratching) {
-      interval = setInterval(() => {
-        track.sound.seek(track.sound.seek() - 0.1); // Rewind the track
-      }, 100);
-      scratchbackSound.play(); // Play scratchback noise
+      if (track && track.sound) {
+        interval = setInterval(() => {
+          track.sound.seek(track.sound.seek() - 0.1); // Rewind the track
+        }, 100);
+      }
+      if (scratchbackSound) {
+        scratchbackSound.play(); // Play scratchback noise
+      }
     } else {
       clearInterval(interval);
-      scratchbackSound.stop(); // Stop scratchback noise
+      if (scratchbackSound) {
+        scratchbackSound.stop(); // Stop scratchback noise
+      }
     }
     return () => clearInterval(interval);
   }, [scratching, track.sound, scratchbackSound]);
