@@ -5,7 +5,6 @@ import Scratching from './components/Scratching';
 import TrackDeck from './components/TrackDeck';
 import Looping from './components/Looping';
 import TrackList from './components/TrackList';
-import EQSliders from './components/EQSliders';
 import { Howl } from 'howler'; // Assuming you're using Howler.js for audio
 
 function App() {
@@ -13,7 +12,7 @@ function App() {
     {
       title: 'SexyBack',
       sound: new Howl({
-        src: ['/audio/sexyback.mp3'],
+        src: ['/audio/whiplash.mp3'],
         volume: 1,
       }),
     },
@@ -35,6 +34,13 @@ function App() {
       title: 'Scream and Shout',
       sound: new Howl({
         src: ['/audio/screamAndShout.mp3'],
+        volume: 1,
+      }),
+    },
+    {
+      title: 'Track 4',
+      sound: new Howl({
+        src: ['/audio/anotherTrack.mp3'],
         volume: 1,
       }),
     },
