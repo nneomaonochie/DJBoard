@@ -162,6 +162,8 @@
   max-width: 1200px; /* Optional: Set a maximum width */
   height: 300px; /* Set a fixed height */
   overflow-y: auto; /* Enable vertical scrolling */
+  border: 2px solid white; /* Add a white border to create a frame */
+  border-radius: 10px; /* Optional: Add rounded corners */
 }
 
 .track-list button {

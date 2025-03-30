@@ -38,9 +38,51 @@ function App() {
       }),
     },
     {
-      title: 'Track 4',
+      title: 'Clarity',
       sound: new Howl({
-        src: ['/audio/anotherTrack.mp3'],
+        src: ['/audio/clarity.mp3'],
+        volume: 1,
+      }),
+    },
+    {
+      title: 'Flights Booked',
+      sound: new Howl({
+        src: ['/audio/flights_Booked.mp3'],
+        volume: 1,
+      }),
+    },
+    {
+      title: 'Nokia',
+      sound: new Howl({
+        src: ['/audio/nokia.mp3'],
+        volume: 1,
+      }),
+    },
+    {
+      title: 'Search and Rescue',
+      sound: new Howl({
+        src: ['/audio/SearchAndRescue.mp3'],
+        volume: 1,
+      }),
+    },
+    {
+      title: 'Clairty',
+      sound: new Howl({
+        src: ['/audio/clarity.mp3'],
+        volume: 1,
+      }),
+    },
+    {
+      title: 'Uh Oh',
+      sound: new Howl({
+        src: ['/audio/uhoh.mp3'],
+        volume: 1,
+      }),
+    },
+    {
+      title: 'Von Dutch',
+      sound: new Howl({
+        src: ['/audio/von_dutch.mp3'],
         volume: 1,
       }),
     },
