@@ -3,8 +3,10 @@ import React, { useState, useEffect } from 'react';
 function RotatingRecord({ track }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
-  const [startAngle, setStartAngle] = useState(0); // To track initial angle of the mouse
-  const [rotation, setRotation] = useState(0); // Track rotation of the record (in degrees)
+  const [startAngle, setStartAngle] = useState(0); // Initial angle of mouse
+  const [rotation, setRotation] = useState(0); // Current rotation in degrees
+  const [lastSeekTime, setLastSeekTime] = useState(0); // Throttle seek calls
+  const [animationFrameId, setAnimationFrameId] = useState(null); // To manage smooth updates during drag
 
   useEffect(() => {
     const handlePlay = () => setIsPlaying(true);
@@ -22,54 +24,67 @@ function RotatingRecord({ track }) {
     };
   }, [track.sound]);
 
-  // Start dragging when mouse is down
+  // Start dragging
   const startDrag = (e) => {
     setIsDragging(true);
     const rect = e.target.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
-    const angle = Math.atan2(e.clientY - centerY, e.clientX - centerX); // Initial angle of mouse position
-    setStartAngle(angle); // Set initial angle
+    const angle = Math.atan2(e.clientY - centerY, e.clientX - centerX); // Get angle of mouse relative to center
+    setStartAngle(angle); // Set the initial angle when drag starts
   };
 
-  // Track mouse movement while dragging
+  // Continuous dragging logic using requestAnimationFrame
   const onDrag = (e) => {
     if (!isDragging) return;
 
+    // Get the mouse position relative to the center of the record
     const rect = e.target.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
-    const angle = Math.atan2(e.clientY - centerY, e.clientX - centerX); // Current angle of mouse position
+    const angle = Math.atan2(e.clientY - centerY, e.clientX - centerX); // Get angle of mouse relative to center
 
-    const deltaAngle = angle - startAngle; // Calculate difference in angle (clockwise or counter-clockwise)
-    const rotationIncrement = deltaAngle * (180 / Math.PI); // Convert radians to degrees
-    setRotation(prevRotation => prevRotation + rotationIncrement); // Increment rotation value
+    const deltaAngle = angle - startAngle; // Calculate difference in angle
+    const rotationIncrement = deltaAngle * (180 / Math.PI); // Convert angle difference to degrees
+    setRotation((prevRotation) => prevRotation + rotationIncrement); // Update rotation
 
-    const duration = track.sound.duration(); // Get the track's total duration
-    const rotationDegrees = rotation + rotationIncrement; // Current degrees of rotation
+    const duration = track.sound.duration(); // Get the total duration of the track
+    const newSeek = (duration * rotation) / 360; // Calculate the new seek position based on the rotation
 
-    const newSeek = (duration * rotationDegrees) / 360; // Calculate new seek position for the track
-    track.sound.seek(newSeek); // Update audio position based on the drag
+    const currentTime = Date.now();
+    if (currentTime - lastSeekTime > 50) { // Throttle the seek update
+      track.sound.seek(newSeek); // Update the sound's position
+      setLastSeekTime(currentTime); // Update last seek time for throttling
+    }
 
-    setStartAngle(angle); // Update the start angle for next movement
+    setStartAngle(angle); // Update start angle for next move
+
+    // If the drag has ended or been canceled, stop the animation frame
+    if (!animationFrameId) {
+      const id = requestAnimationFrame(() => {
+        setAnimationFrameId(id); // Keep track of the animation frame id
+      });
+    }
   };
 
-  // Stop dragging when mouse is up or leaves the record
+  // Stop dragging
   const stopDrag = () => {
     setIsDragging(false);
+    cancelAnimationFrame(animationFrameId); // Stop the animation frame on drag end
+    setAnimationFrameId(null); // Clear the animation frame id
   };
 
   return (
     <div
-      className={`record ${isPlaying && !isDragging ? 'spinning' : ''}`} // Add spinning only if playing and not dragging
-      onMouseDown={startDrag} // Start drag when mouse is pressed
+      className={`record ${isPlaying && !isDragging ? 'spinning' : ''}`} // Only spin if the track is playing and not being dragged
+      onMouseDown={startDrag} // Start drag on mouse down
       onMouseMove={onDrag} // Track mouse movement while dragging
-      onMouseUp={stopDrag} // Stop drag when mouse is released
-      onMouseLeave={stopDrag} // Stop drag if mouse leaves the record area
+      onMouseUp={stopDrag} // Stop dragging on mouse up
+      onMouseLeave={stopDrag} // Stop dragging if mouse leaves the record area
       style={{
-        cursor: isDragging ? 'grabbing' : 'pointer', // Change cursor to grabbing when dragging
-        transform: `rotate(${rotation}deg)`, // Dynamically apply rotation based on mouse drag
-        transition: isDragging ? 'none' : 'transform 0.5s ease', // Smooth transition when not dragging
+        cursor: isDragging ? 'grabbing' : 'pointer', // Change cursor while dragging
+        transform: `rotate(${rotation}deg)`, // Rotate the record based on drag
+        transition: isDragging ? 'none' : 'transform 0.5s ease', // Smooth transition for spinning when not dragging
       }}
     >
       <img src="/record.jpeg" alt="Record" />
