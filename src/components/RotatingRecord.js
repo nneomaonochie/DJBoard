@@ -85,6 +85,7 @@ function RotatingRecord({ track }) {
         cursor: isDragging ? 'grabbing' : 'pointer', // Change cursor while dragging
         transform: `rotate(${rotation}deg)`, // Rotate the record based on drag
         transition: isDragging ? 'none' : 'transform 0.5s ease', // Smooth transition for spinning when not dragging
+        boxShadow: isPlaying && !isDragging ? '0 0 15px 5px rgba(0, 255, 255, 0.8)' : 'none', // Glowing effect when playing
       }}
     >
       <img src="/record.jpeg" alt="Record" />
