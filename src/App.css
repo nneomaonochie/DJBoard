@@ -1,3 +1,5 @@
+@import '~@fortawesome/fontawesome-free/css/all.min.css';
+
 .App {
   text-align: center;
 }
@@ -146,16 +148,6 @@
   }
 }
   
-
-  @keyframes spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-  
   .record:hover {
     opacity: 0.9; 
   }
@@ -188,24 +180,27 @@
   background-color: #0056b3;
 }
 
-.eq-sliders {
+.icon-button {
+  background: #222;
+  border: none;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+  margin: 0 10px;
+  padding: 10px;
+  border-radius: 5px; /* Rounded corners */
   display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.slider-container {
-  display: flex;
-  flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
-.slider-container label {
-  margin-bottom: 5px;
+.icon-button:hover {
+  background-color: #111; /* Slightly lighter grey on hover */
+  color: #fff;
 }
 
-.slider-container input[type="range"] {
-  width: 100%;
-  max-width: 300px;
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 10px; /* Space between buttons */
 }
-

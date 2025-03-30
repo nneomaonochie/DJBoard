@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import RotatingRecord from './RotatingRecord';
+import '../App.css'; // Ensure you have the CSS import for Font Awesome
 
 function TrackDeck({ track }) {
   const [sound, setSound] = useState(track.sound);
@@ -30,9 +31,15 @@ function TrackDeck({ track }) {
         <RotatingRecord track={track} />
       </div>
       <div className="controls">
-        <button onClick={playTrack}>Play</button>
-        <button onClick={pauseTrack}>Pause</button>
-        <button onClick={stopTrack}>Stop</button>
+        <button onClick={playTrack} className="icon-button">
+          <i className="fas fa-play"></i>
+        </button>
+        <button onClick={pauseTrack} className="icon-button">
+          <i className="fas fa-pause"></i>
+        </button>
+        <button onClick={stopTrack} className="icon-button">
+          <i className="fas fa-stop"></i>
+        </button>
       </div>
     </div>
   );
