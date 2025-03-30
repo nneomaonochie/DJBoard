@@ -2,7 +2,7 @@
 
 import useSound from 'use-sound';
 
-import boopSfx from '../../sounds/boop.mp3';
+import boopSfx from '../../Music Intro Energetic EDM Dance No Copyright 30 Seconds (by Infraction).wav';
 
 function Play () {
   const [bleh] = useSound(boopSfx);
