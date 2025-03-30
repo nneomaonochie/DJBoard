@@ -3,6 +3,7 @@ import './App.css';
 import CrossFader from './components/CrossFader';
 import Scratching from './components/Scratching';
 import TrackDeck from './components/TrackDeck';
+import Looping from './components/Looping';
 import { Howl } from 'howler'; // Assuming you're using Howler.js for audio
 
 function App() {
@@ -35,6 +36,9 @@ function App() {
       <TrackDeck track={track2} />
       <CrossFader track1={track1} track2={track2} />
       <Scratching track={track1} scratchbackSound={scratchbackSound} />
+      <Scratching track={track2} scratchbackSound={scratchbackSound} />
+      <Looping track={track1} />
+      <Looping track={track2} />
     </div>
   );
 }

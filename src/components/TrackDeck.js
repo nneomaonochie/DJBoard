@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import RotatingRecord from './RotatingRecord';
 
 function TrackDeck({ track }) {
   const [sound, setSound] = useState(track.sound);
@@ -18,6 +19,7 @@ function TrackDeck({ track }) {
   return (
     <div className="track-deck">
       <h3>{track.title}</h3>
+      <RotatingRecord track={track} />
       <div className="controls">
         <button onClick={playTrack}>Play</button>
         <button onClick={pauseTrack}>Pause</button>

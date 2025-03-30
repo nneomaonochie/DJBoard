@@ -1,42 +1,42 @@
-import React, { useState } from 'react';
-import { Howl } from 'howler';
+import React, { useState, useEffect } from 'react';
 
-function Looping() {
-  const [isLooping, setIsLooping] = useState(false);
-  const [sound, setSound] = useState(null);
+function Looping({ track }) {
+  const [looping, setLooping] = useState(false);
+  const [loopStart, setLoopStart] = useState(0);
+  const [loopEnd, setLoopEnd] = useState(null);
+
+  useEffect(() => {
+    let interval;
+    if (looping) {
+      interval = setInterval(() => {
+        if (track.sound.seek() >= loopEnd) {
+          track.sound.seek(loopStart);
+        }
+      }, 100); // Check every 100 milliseconds
+    } else {
+      clearInterval(interval);
+    }
+    return () => clearInterval(interval);
+  }, [looping, loopStart, loopEnd, track.sound]);
+
+  const setLoopStartTime = () => {
+    setLoopStart(track.sound.seek());
+  };
 
   const toggleLoop = () => {
-    // If the audio is playing, we stop it and create a new instance with loop option
-    if (sound) {
-      sound.stop();
+    if (!looping) {
+      setLoopEnd(track.sound.seek());
     }
-
-    // Create a new Howl instance with the loop option toggled
-    const newSound = new Howl({
-      src: ['/audio/sexyBack.mp3'], // Use your audio file here
-      loop: !isLooping, // Toggle loop between true/false
-      volume: 1,
-    });
-
-    setSound(newSound);
-
-    // Start playing the sound immediately after creating the new Howl instance
-    newSound.play();
-
-    // Toggle the loop state
-    setIsLooping(!isLooping);
+    setLooping(!looping);
   };
 
   return (
     <div>
-      <h1>Audio Looping Example</h1>
-      <div>
-        <button onClick={toggleLoop}>
-          {isLooping ? 'Stop Looping' : 'Start Looping'}
-        </button>
-      </div>
+      <button onClick={togglePlay}>
+        {isPlaying ? 'Pause' : 'Play'}
+      </button>
     </div>
   );
 }
 
-export default Looping;
+export default AudioPlayer;
