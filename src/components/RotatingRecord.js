@@ -36,7 +36,7 @@ export default RotatingRecord;
 
 // DRAGGING Attempt 1
 
-/*
+
 import React, { useState, useEffect, useRef } from 'react';
 import { Howl } from 'howler';
 import './RotatingRecord.css'; // Make sure you import the CSS
@@ -115,74 +115,3 @@ function RotatingRecord() {
 }
 
 export default RotatingRecord;
-*/
-
-import React, { useState, useRef } from 'react';
-import './RotatingRecord.css'; // Make sure your CSS is imported
-
-function RotatingRecord({ track, updateTrackPosition }) {
-  const [isDragging, setIsDragging] = useState(false); // Track dragging state
-  const [rotation, setRotation] = useState(0); // Current rotation angle of the record
-  const [audioPosition, setAudioPosition] = useState(0); // Track audio position
-  const recordRef = useRef(null); // Reference to the record element
-
-  const handleMouseMove = (e) => {
-    if (isDragging) {
-      const centerX = recordRef.current.offsetLeft + recordRef.current.offsetWidth / 2;
-      const centerY = recordRef.current.offsetTop + recordRef.current.offsetHeight / 2;
-      const mouseX = e.clientX;
-      const mouseY = e.clientY;
-
-      // Calculate the angle of rotation relative to the center
-      const angle = Math.atan2(mouseY - centerY, mouseX - centerX) * (180 / Math.PI);
-      const rotationDelta = angle - rotation;
-
-      // Update rotation angle
-      setRotation((prevRotation) => prevRotation + rotationDelta);
-
-      // Calculate the new audio position based on rotation direction
-      const newAudioPosition = audioPosition + rotationDelta * 0.1; // Speed of the change (0.1 to fine-tune)
-      setAudioPosition(Math.max(0, Math.min(newAudioPosition, track.sound.duration()))); // Update position within valid range
-
-      // Update track position in App.js
-      updateTrackPosition(track, audioPosition);
-    }
-  };
-
-  const handleMouseDown = (e) => {
-    setIsDragging(true);
-  };
-
-  const handleMouseUp = () => {
-    setIsDragging(false);
-  };
-
-  const handleMouseOut = () => {
-    if (isDragging) {
-      setIsDragging(false);
-    }
-  };
-
-  return (
-    <div
-      className="record"
-      ref={recordRef}
-      onMouseDown={handleMouseDown}
-      onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUp}
-      onMouseOut={handleMouseOut}
-      style={{
-        transform: `rotate(${rotation}deg)`, // Rotate the record based on mouse position
-        cursor: 'pointer', // Indicate the record is draggable
-      }}
-    >
-      {/* Replace with the actual path to your record image */}
-      <img src="/record.jpeg" alt="Record" />
-    </div>
-  );
-}
-
-export default RotatingRecord;
-
-
-
