@@ -32,13 +32,21 @@ function App() {
 
   return (
     <div className="dj-board">
-      <TrackDeck track={track1} />
-      <TrackDeck track={track2} />
-      <CrossFader track1={track1} track2={track2} />
-      <Scratching track={track1} scratchbackSound={scratchbackSound} />
-      <Scratching track={track2} scratchbackSound={scratchbackSound} />
-      <Looping track={track1} />
-      <Looping track={track2} />
+      <div className="track-container left">
+        <TrackDeck track={track1} />
+        <div className="buttons-row">
+          <Scratching track={track1} scratchbackSound={scratchbackSound} />
+          <Looping track={track1} />
+        </div>
+      </div>
+      <div className="track-container right">
+        <TrackDeck track={track2} />
+        <div className="buttons-row">
+          <Scratching track={track2} scratchbackSound={scratchbackSound} />
+          <Looping track={track2} />
+        </div>
+      </div>
+      <CrossFader className="crossfader" track1={track1} track2={track2} />
     </div>
   );
 }

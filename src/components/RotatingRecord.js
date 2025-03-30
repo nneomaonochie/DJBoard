@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import './RotatingRecord.css'; // Create this CSS file for styling
 
 function RotatingRecord({ track }) {
   const [isPlaying, setIsPlaying] = useState(false);
