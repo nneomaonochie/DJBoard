@@ -2,7 +2,7 @@
 
 import useSound from 'use-sound';
 
-import boopSfx from '../../sounds/boop.mp3';
+import boopSfx from '../music.wav';
 
 function Play () {
   const [bleh] = useSound(boopSfx);
@@ -10,4 +10,4 @@ function Play () {
   return <button onClick={bleh}>Boop!</button>;
 };
 
-export default Play
+export default Play;
