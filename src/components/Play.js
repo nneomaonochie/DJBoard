@@ -1,13 +1,36 @@
-// this component is used for when we play audio
+import React, { useState } from 'react';
+import { Howl } from 'howler';
 
-import useSound from 'use-sound';
+function TrackDeck({ track }) {
+  const [sound, setSound] = useState(null);
 
-import boopSfx from '../music.wav';
+  const playTrack = () => {
+    const newSound = new Howl({
+      src: [track.audioFile],
+      html5: true,
+    });
+    newSound.play();
+    setSound(newSound);
+  };
 
-function Play () {
-  const [bleh] = useSound(boopSfx);
+  const pauseTrack = () => {
+    if (sound) sound.pause();
+  };
 
-  return <button onClick={bleh}>Boop!</button>;
-};
+  const stopTrack = () => {
+    if (sound) sound.stop();
+  };
 
-export default Play;
+  return (
+    <div className="track-deck">
+      <h3>{track.title}</h3>
+      <div className="controls">
+        <button onClick={playTrack}>Play</button>
+        <button onClick={pauseTrack}>Pause</button>
+        <button onClick={stopTrack}>Stop</button>
+      </div>
+    </div>
+  );
+}
+
+export default TrackDeck;
