@@ -1,3 +1,7 @@
+
+// REGULAR
+
+/*
 import React, { useEffect, useState } from 'react';
 import './RotatingRecord.css'; // Create this CSS file for styling
 
@@ -28,3 +32,157 @@ function RotatingRecord({ track }) {
 }
 
 export default RotatingRecord;
+*/
+
+// DRAGGING Attempt 1
+
+/*
+import React, { useState, useEffect, useRef } from 'react';
+import { Howl } from 'howler';
+import './RotatingRecord.css'; // Make sure you import the CSS
+
+function RotatingRecord() {
+  const [isDragging, setIsDragging] = useState(false); // Track dragging state
+  const [rotation, setRotation] = useState(0); // Current rotation angle of the record
+  const [audioPosition, setAudioPosition] = useState(0); // Current audio position
+  const recordRef = useRef(null); // Reference to the record element
+
+  // Initialize audio
+  const sound = new Howl({
+    src: ['./your-audio-file.mp3'], // Replace with the actual path to your audio file
+    html5: true,
+    loop: true,
+  });
+
+  useEffect(() => {
+    sound.play();
+  }, []);
+
+  const handleMouseDown = (e) => {
+    setIsDragging(true);
+  };
+
+  const handleMouseMove = (e) => {
+    if (isDragging) {
+      const centerX = recordRef.current.offsetLeft + recordRef.current.offsetWidth / 2;
+      const centerY = recordRef.current.offsetTop + recordRef.current.offsetHeight / 2;
+      const mouseX = e.clientX;
+      const mouseY = e.clientY;
+
+      const angle = Math.atan2(mouseY - centerY, mouseX - centerX) * (180 / Math.PI); // Calculate the angle
+      const rotationDelta = angle - rotation; // Determine if the drag is clockwise or counterclockwise
+
+      // Update rotation
+      setRotation(angle);
+
+      // Update audio position based on drag direction
+      if (rotationDelta > 0) {
+        // Clockwise, fast forward the audio
+        setAudioPosition(Math.min(sound.duration(), audioPosition + 0.1));
+      } else {
+        // Counterclockwise, rewind the audio
+        setAudioPosition(Math.max(0, audioPosition - 0.1));
+      }
+
+      // Update the sound's playback position
+      sound.seek(audioPosition);
+    }
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  const handleMouseOut = () => {
+    if (isDragging) {
+      setIsDragging(false);
+    }
+  };
+
+  return (
+    <div
+      className="record"
+      ref={recordRef}
+      onMouseDown={handleMouseDown}
+      onMouseMove={handleMouseMove}
+      onMouseUp={handleMouseUp}
+      onMouseOut={handleMouseOut}
+      style={{ transform: `rotate(${rotation}deg)` }} // Apply rotation style dynamically
+    >
+      <img src="/record.jpeg" alt="Record" />
+    </div>
+  );
+}
+
+export default RotatingRecord;
+*/
+
+import React, { useState, useRef } from 'react';
+import './RotatingRecord.css'; // Make sure your CSS is imported
+
+function RotatingRecord({ track, updateTrackPosition }) {
+  const [isDragging, setIsDragging] = useState(false); // Track dragging state
+  const [rotation, setRotation] = useState(0); // Current rotation angle of the record
+  const [audioPosition, setAudioPosition] = useState(0); // Track audio position
+  const recordRef = useRef(null); // Reference to the record element
+
+  const handleMouseMove = (e) => {
+    if (isDragging) {
+      const centerX = recordRef.current.offsetLeft + recordRef.current.offsetWidth / 2;
+      const centerY = recordRef.current.offsetTop + recordRef.current.offsetHeight / 2;
+      const mouseX = e.clientX;
+      const mouseY = e.clientY;
+
+      // Calculate the angle of rotation relative to the center
+      const angle = Math.atan2(mouseY - centerY, mouseX - centerX) * (180 / Math.PI);
+      const rotationDelta = angle - rotation;
+
+      // Update rotation angle
+      setRotation((prevRotation) => prevRotation + rotationDelta);
+
+      // Calculate the new audio position based on rotation direction
+      const newAudioPosition = audioPosition + rotationDelta * 0.1; // Speed of the change (0.1 to fine-tune)
+      setAudioPosition(Math.max(0, Math.min(newAudioPosition, track.sound.duration()))); // Update position within valid range
+
+      // Update track position in App.js
+      updateTrackPosition(track, audioPosition);
+    }
+  };
+
+  const handleMouseDown = (e) => {
+    setIsDragging(true);
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  const handleMouseOut = () => {
+    if (isDragging) {
+      setIsDragging(false);
+    }
+  };
+
+  return (
+    <div
+      className="record"
+      ref={recordRef}
+      onMouseDown={handleMouseDown}
+      onMouseMove={handleMouseMove}
+      onMouseUp={handleMouseUp}
+      onMouseOut={handleMouseOut}
+      style={{
+        transform: `rotate(${rotation}deg)`, // Rotate the record based on mouse position
+        cursor: 'pointer', // Indicate the record is draggable
+      }}
+    >
+      {/* Replace with the actual path to your record image */}
+      <img src="/record.jpeg" alt="Record" />
+    </div>
+  );
+}
+
+export default RotatingRecord;
+
+
+
