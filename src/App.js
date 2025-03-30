@@ -18,7 +18,7 @@ function App() {
   const track2 = {
     title: 'Track 2',
     sound: new Howl({
-      src: ['path/to/track2.mp3'],
+      src: ['./weFoundLove.mp3'],
       volume: 1,
     }),
   };
