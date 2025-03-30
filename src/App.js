@@ -10,7 +10,7 @@ function App() {
   const track1 = {
     title: 'Track 1',
     sound: new Howl({
-      src: ['./sexyBack.mp3'],
+      src: ['/audio/sexyBack.mp3'],
       volume: 1,
     }),
   };
@@ -18,7 +18,7 @@ function App() {
   const track2 = {
     title: 'Track 2',
     sound: new Howl({
-      src: ['./weFoundLove.mp3'],
+      src: ['/audio/weFoundLove.mp3'],
       volume: 1,
     }),
   };
