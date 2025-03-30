@@ -133,6 +133,7 @@
 }
 
 .spinning {
+  /* Only apply continuous spinning animation when track is playing, not when dragging */
   animation: spin 2s linear infinite;
 }
 
@@ -144,6 +145,24 @@
     transform: rotate(360deg);
   }
 }
+  
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .record:hover {
+    opacity: 0.9; 
+  }
+  
+
+
+*/
 
 .track-list {
   grid-column: 2 / 3; /* Place in the middle column */
