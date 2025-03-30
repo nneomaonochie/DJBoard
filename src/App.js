@@ -5,6 +5,7 @@ import Scratching from './components/Scratching';
 import TrackDeck from './components/TrackDeck';
 import Looping from './components/Looping';
 import TrackList from './components/TrackList';
+import EQSliders from './components/EQSliders';
 import { Howl } from 'howler'; // Assuming you're using Howler.js for audio
 
 function App() {
