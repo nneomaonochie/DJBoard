@@ -121,6 +121,7 @@
 }
 
 .spinning {
+  /* Only apply continuous spinning animation when track is playing, not when dragging */
   animation: spin 2s linear infinite;
 }
 
