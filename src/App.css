@@ -159,6 +159,8 @@
   text-align: left; /* Center the text */
   width: 100%; /* Adjust the width as needed */
   max-width: 1200px; /* Optional: Set a maximum width */
+  height: 300px; /* Set a fixed height */
+  overflow-y: auto; /* Enable vertical scrolling */
 }
 
 .track-list button {
