@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Howl } from 'howler';
+import Looping from './components/Looping';
 
 function TrackDeck({ track }) {
   const [sound, setSound] = useState(null);
@@ -21,6 +22,11 @@ function TrackDeck({ track }) {
     if (sound) sound.stop();
   };
 
+  const loopTrack = () => {
+    if (sound) sound.toggleLoop();
+  };
+
+
   return (
     <div className="track-deck">
       <h3>{track.title}</h3>
@@ -28,6 +34,7 @@ function TrackDeck({ track }) {
         <button onClick={playTrack}>Play</button>
         <button onClick={pauseTrack}>Pause</button>
         <button onClick={stopTrack}>Stop</button>
+        <button onClick={loopTrack}>Loop</button>
       </div>
     </div>
   );
