@@ -23,7 +23,7 @@ function TrackDeck({ track }) {
   };
 
   const loopTrack = () => {
-    if (sound) sound.toggleLoop();
+    if (sound) sound.loop();
   };
 
 

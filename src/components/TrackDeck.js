@@ -15,6 +15,10 @@ function TrackDeck({ track }) {
     if (sound) sound.stop();
   };
 
+  const loopTrack = () => {
+    if (sound) sound.loop();
+  };
+
   return (
     <div className="track-deck">
       <h3>{track.title}</h3>
@@ -22,6 +26,7 @@ function TrackDeck({ track }) {
         <button onClick={playTrack}>Play</button>
         <button onClick={pauseTrack}>Pause</button>
         <button onClick={stopTrack}>Stop</button>
+        <button onClick={loopTrack}>Loop</button>
       </div>
     </div>
   );
