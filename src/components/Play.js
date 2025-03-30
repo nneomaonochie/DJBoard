@@ -10,4 +10,4 @@ function Play () {
   return <button onClick={bleh}>Boop!</button>;
 };
 
-export default Play
+export default Play;
