@@ -86,6 +86,34 @@ function App() {
         volume: 1,
       }),
     },
+    {
+      title: 'Yeah!',
+      sound: new Howl({
+        src: ['/audio/yeah.mp3'],
+        volume: 1,
+      }),
+    },
+    {
+      title: 'Crazy',
+      sound: new Howl({
+        src: ['/audio/crazy.mp3'],
+        volume: 1,
+      }),
+    },
+    {
+      title: 'September',
+      sound: new Howl({
+        src: ['/audio/september.mp3'],
+        volume: 1,
+      }),
+    },
+    {
+      title: 'Billie Jean',
+      sound: new Howl({
+        src: ['/audio/billieJean.mp3'],
+        volume: 1,
+      }),
+    },
   ];
 
   const [selectedTracks, setSelectedTracks] = useState([tracks[0], tracks[1]]);
