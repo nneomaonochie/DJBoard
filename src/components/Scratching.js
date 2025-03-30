@@ -34,7 +34,7 @@ function Scratching({ track, scratchbackSound }) {
   return (
     <div className="scratching">
       <button onMouseDown={startScratching} onMouseUp={stopScratching}>
-        Scratch
+        <img src="/recordPlayerArm.png" alt="Scratch" className="button-image" />
       </button>
     </div>
   );

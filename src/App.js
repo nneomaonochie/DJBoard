@@ -62,16 +62,16 @@ function App() {
   return (
     <div className="dj-board">
       <div className="track-container left">
-        <TrackDeck track={selectedTracks[0]} />
+        <TrackDeck track={selectedTracks[0]}/>
+        <Scratching track={selectedTracks[0]} scratchbackSound={scratchbackSound} />
         <div className="buttons-row">
-          <Scratching track={selectedTracks[0]} scratchbackSound={scratchbackSound} />
           <Looping track={selectedTracks[0]} />
         </div>
       </div>
       <div className="track-container right">
         <TrackDeck track={selectedTracks[1]} />
+        <Scratching track={selectedTracks[1]} scratchbackSound={scratchbackSound} />
         <div className="buttons-row">
-          <Scratching track={selectedTracks[1]} scratchbackSound={scratchbackSound} />
           <Looping track={selectedTracks[1]} />
         </div>
       </div>

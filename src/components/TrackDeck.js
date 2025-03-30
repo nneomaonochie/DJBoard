@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import RotatingRecord from './RotatingRecord';
+import Scratching from './Scratching';
 import '../App.css'; // Ensure you have the CSS import for Font Awesome
 
 function TrackDeck({ track }) {
