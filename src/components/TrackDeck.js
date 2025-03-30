@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import RotatingRecord from './RotatingRecord';
 
 function TrackDeck({ track }) {
-  const [sound, setSound] = useState(track.sound);
+  const [sound] = useState(track.sound);
 
   const playTrack = () => {
     if (sound) sound.play();

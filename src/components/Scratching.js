@@ -21,7 +21,7 @@ function Scratching({ track, scratchbackSound }) {
       }
     }
     return () => clearInterval(interval);
-  }, [scratching, track.sound, scratchbackSound]);
+  }, [scratching, track.sound, scratchbackSound, track]);
 
   const startScratching = () => {
     setScratching(true);
