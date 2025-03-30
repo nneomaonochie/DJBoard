@@ -25,7 +25,7 @@ function App() {
 
   // Initialize scratchbackSound with Howler.js
   const scratchbackSound = new Howl({
-    src: ['path/to/scratchback.mp3'],
+    src: ['audio/scratchback.mp3'],
     volume: 1,
   });
 
