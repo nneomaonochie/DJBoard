@@ -7,15 +7,6 @@ import Looping from './components/Looping';
 import { Howl } from 'howler'; // Assuming you're using Howler.js for audio
 
 function App() {
-<<<<<<< HEAD
-
-  // asks user to drop in a music file, called userFile
-
-
-  return (
-    <div className="App">
-      <Play/>
-=======
   // Initialize track1 and track2 with Howler.js
   const track1 = {
     title: 'Track 1',
@@ -24,7 +15,6 @@ function App() {
       volume: 1,
     }),
   };
->>>>>>> origin/main
 
   const track2 = {
     title: 'Track 2',
@@ -53,9 +43,4 @@ function App() {
   );
 }
 
-<<<<<<< HEAD
-// <AudioPlayer musicFile={userFile} />
 export default App;
-=======
-export default App;
->>>>>>> origin/main
