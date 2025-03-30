@@ -31,12 +31,16 @@ function Looping({ track }) {
   };
 
   return (
-    <div>
-      <button onClick={togglePlay}>
-        {isPlaying ? 'Pause' : 'Play'}
+    <div className="looping">
+      <button onClick={setLoopStartTime}>Set Loop Start</button>
+      <button
+        onClick={toggleLoop}
+        style={{ backgroundColor: looping ? 'green' : 'gray' }}
+      >
+        Loop
       </button>
     </div>
   );
 }
 
-export default AudioPlayer;
+export default Looping;
