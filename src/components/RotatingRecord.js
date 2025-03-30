@@ -1,12 +1,11 @@
-
-// REGULAR
-
-/*
 import React, { useEffect, useState } from 'react';
-import './RotatingRecord.css'; // Create this CSS file for styling
 
 function RotatingRecord({ track }) {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startAngle, setStartAngle] = useState(0); // For tracking initial mouse angle
+  const [rotation, setRotation] = useState(0); // Track the current rotation of the record
+  const [spinDirection, setSpinDirection] = useState(1); // 1 for clockwise, -1 for counterclockwise
 
   useEffect(() => {
     const handlePlay = () => setIsPlaying(true);
@@ -24,90 +23,62 @@ function RotatingRecord({ track }) {
     };
   }, [track.sound]);
 
-  return (
-    <div className={`record ${isPlaying ? 'spinning' : ''}`}>
-      <img src="/record.jpeg" alt="Record" />
-    </div>
-  );
-}
-
-export default RotatingRecord;
-*/
-
-// DRAGGING Attempt 1
-
-
-import React, { useState, useEffect, useRef } from 'react';
-import { Howl } from 'howler';
-import './RotatingRecord.css'; // Make sure you import the CSS
-
-function RotatingRecord() {
-  const [isDragging, setIsDragging] = useState(false); // Track dragging state
-  const [rotation, setRotation] = useState(0); // Current rotation angle of the record
-  const [audioPosition, setAudioPosition] = useState(0); // Current audio position
-  const recordRef = useRef(null); // Reference to the record element
-
-  // Initialize audio
-  const sound = new Howl({
-    src: ['./your-audio-file.mp3'], // Replace with the actual path to your audio file
-    html5: true,
-    loop: true,
-  });
-
-  useEffect(() => {
-    sound.play();
-  }, []);
-
-  const handleMouseDown = (e) => {
+  // Function to start the drag
+  const startDrag = (e) => {
     setIsDragging(true);
+    const rect = e.target.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    const angle = Math.atan2(e.clientY - centerY, e.clientX - centerX); // Get the initial angle
+    setStartAngle(angle);
   };
 
-  const handleMouseMove = (e) => {
-    if (isDragging) {
-      const centerX = recordRef.current.offsetLeft + recordRef.current.offsetWidth / 2;
-      const centerY = recordRef.current.offsetTop + recordRef.current.offsetHeight / 2;
-      const mouseX = e.clientX;
-      const mouseY = e.clientY;
+  // Function to handle the drag movement
+  const onDrag = (e) => {
+    if (!isDragging) return;
 
-      const angle = Math.atan2(mouseY - centerY, mouseX - centerX) * (180 / Math.PI); // Calculate the angle
-      const rotationDelta = angle - rotation; // Determine if the drag is clockwise or counterclockwise
+    const rect = e.target.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    const angle = Math.atan2(e.clientY - centerY, e.clientX - centerX); // Current angle
 
-      // Update rotation
-      setRotation(angle);
+    const deltaAngle = angle - startAngle; // Difference in angles to determine direction
+    setRotation(rotation + deltaAngle); // Update the current rotation
 
-      // Update audio position based on drag direction
-      if (rotationDelta > 0) {
-        // Clockwise, fast forward the audio
-        setAudioPosition(Math.min(sound.duration(), audioPosition + 0.1));
-      } else {
-        // Counterclockwise, rewind the audio
-        setAudioPosition(Math.max(0, audioPosition - 0.1));
-      }
-
-      // Update the sound's playback position
-      sound.seek(audioPosition);
+    // Update spin direction based on the drag movement (clockwise or counterclockwise)
+    if (deltaAngle > 0) {
+      setSpinDirection(1); // Clockwise
+    } else if (deltaAngle < 0) {
+      setSpinDirection(-1); // Counterclockwise
     }
+
+    // Adjust the sound position based on the drag direction
+    const duration = track.sound.duration(); // Total duration of the track
+    const rotationDegrees = rotation * (180 / Math.PI); // Convert radian rotation to degrees
+
+    const newSeek = (duration * rotationDegrees) / 360; // Convert degrees to seek position
+    track.sound.seek(newSeek); // Update the playback position using Howler's seek method
+
+    setStartAngle(angle); // Update the start angle for the next drag event
   };
 
-  const handleMouseUp = () => {
+  // Function to stop the drag
+  const stopDrag = () => {
     setIsDragging(false);
-  };
-
-  const handleMouseOut = () => {
-    if (isDragging) {
-      setIsDragging(false);
-    }
   };
 
   return (
     <div
-      className="record"
-      ref={recordRef}
-      onMouseDown={handleMouseDown}
-      onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUp}
-      onMouseOut={handleMouseOut}
-      style={{ transform: `rotate(${rotation}deg)` }} // Apply rotation style dynamically
+      className={`record ${isPlaying ? 'spinning' : ''}`}
+      onMouseDown={startDrag} // Start dragging when mouse is down
+      onMouseMove={onDrag} // Track mouse move when dragging
+      onMouseUp={stopDrag} // Stop dragging when mouse is released
+      onMouseLeave={stopDrag} // Handle mouse leave to stop dragging
+      style={{
+        cursor: isDragging ? 'grabbing' : 'pointer',
+        transform: `rotate(${rotation * (180 / Math.PI) * spinDirection}deg)`, // Dynamic rotation
+        transition: isDragging ? 'none' : 'transform 0.5s ease', // Smooth transition when not dragging
+      }} // Dynamically rotate the record
     >
       <img src="/record.jpeg" alt="Record" />
     </div>
