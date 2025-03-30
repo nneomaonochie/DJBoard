@@ -12,7 +12,7 @@ function App() {
     {
       title: 'SexyBack',
       sound: new Howl({
-        src: ['/audio/whiplash.mp3'],
+        src: ['/audio/sexyBack.mp3'],
         volume: 1,
       }),
     },
