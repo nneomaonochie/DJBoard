@@ -8,8 +8,8 @@ function TrackList({ tracks, onSelectTrack }) {
         {tracks.map((track, index) => (
           <li key={index}>
             {track.title}
-            <button onClick={() => onSelectTrack(track, 0)}>Set as Track 1</button>
-            <button onClick={() => onSelectTrack(track, 1)}>Set as Track 2</button>
+            <button onClick={() => onSelectTrack(track, 0)}>Set as Left</button>
+            <button onClick={() => onSelectTrack(track, 1)}>Set as Right</button>
           </li>
         ))}
       </ul>

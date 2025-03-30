@@ -10,23 +10,30 @@ import { Howl } from 'howler'; // Assuming you're using Howler.js for audio
 function App() {
   const tracks = [
     {
-      title: 'Track 1',
+      title: 'SexyBack',
       sound: new Howl({
         src: ['/audio/whiplash.mp3'],
         volume: 1,
       }),
     },
     {
-      title: 'Track 2',
+      title: 'We Found Love',
       sound: new Howl({
         src: ['/audio/weFoundLove.mp3'],
         volume: 1,
       }),
     },
     {
-      title: 'Track 3',
+      title: 'Whiplash',
       sound: new Howl({
-        src: ['/audio/anotherTrack.mp3'],
+        src: ['/audio/whiplash.mp3'],
+        volume: 1,
+      }),
+    },
+    {
+      title: 'Scream and Shout',
+      sound: new Howl({
+        src: ['/audio/screamAndShout.mp3'],
         volume: 1,
       }),
     },
@@ -47,7 +54,6 @@ function App() {
 
   return (
     <div className="dj-board">
-      <TrackList tracks={tracks} onSelectTrack={handleSelectTrack} />
       <div className="track-container left">
         <TrackDeck track={selectedTracks[0]} />
         <div className="buttons-row">
@@ -63,6 +69,7 @@ function App() {
         </div>
       </div>
       <CrossFader className="crossfader" track1={selectedTracks[0]} track2={selectedTracks[1]} />
+      <TrackList tracks={tracks} onSelectTrack={handleSelectTrack} /> {/* Move TrackList here */}
     </div>
   );
 }

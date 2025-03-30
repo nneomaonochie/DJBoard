@@ -42,7 +42,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr; /* Divide the screen into three equal parts */
   align-items: flex-start;
-  height: 100vh; /* Optional: to make sure the grid takes the full height of the viewport */
+  min-height: 100vh;
   background-color: #333; /* Dark grey */
   color: white; /* Optional: to ensure text is readable */
 }
@@ -57,12 +57,12 @@
 
 .track-container.left {
   grid-column: 1 / 2; /* Place in the first third */
-  align-items: center; /* Center the content within the grid cell */
+  align-items: flex-end; /* Center the content within the grid cell */
 }
 
 .track-container.right {
   grid-column: 3 / 4; /* Place in the last third */
-  align-items: center; /* Center the content within the grid cell */
+  align-items: flex-start; /* Center the content within the grid cell */
 }
 
 .buttons-row {
@@ -76,6 +76,12 @@
   flex-direction: column;
   align-items: center; /* Center the content horizontally */
   gap: 20px; /* Adjust the gap between the record image and buttons */
+}
+
+.track-title {
+  margin-bottom: 10px;
+  font-size: 1.2em;
+  text-align: center;
 }
 
 /* CrossFader.css */
@@ -112,6 +118,12 @@
   height: 300px; /* Adjust size as needed */
   margin: 0 auto;
   position: relative;
+}
+
+.record-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .record img {
@@ -152,6 +164,16 @@
 
 */
 
+.track-list {
+  grid-column: 2 / 3; /* Place in the middle column */
+  margin-top: auto; /* Pushes the TrackList to the bottom */
+  padding: 10px;
+  background-color: #333; /* Optional: Add some styling */
+  text-align: left; /* Center the text */
+  width: 100%; /* Adjust the width as needed */
+  max-width: 1200px; /* Optional: Set a maximum width */
+}
+
 .track-list button {
   background-color: #007bff;
   color: white;
@@ -165,3 +187,4 @@
 .track-list button:hover {
   background-color: #0056b3;
 }
+
