@@ -66,13 +66,6 @@ function App() {
       }),
     },
     {
-      title: 'Clairty',
-      sound: new Howl({
-        src: ['/audio/clarity.mp3'],
-        volume: 1,
-      }),
-    },
-    {
       title: 'Uh Oh',
       sound: new Howl({
         src: ['/audio/uhoh.mp3'],
@@ -111,6 +104,48 @@ function App() {
       title: 'Billie Jean',
       sound: new Howl({
         src: ['/audio/billieJean.mp3'],
+        volume: 1,
+      }),
+    },
+    {
+      title: 'All Electric',
+      sound: new Howl({
+        src: ['/audio/AllElectric.mp3'],
+        volume: 1,
+      }),
+    },
+    {
+      title: 'Around the World',
+      sound: new Howl({
+        src: ['/audio/aroundTheWorld.mp3'],
+        volume: 1,
+      }),
+    },
+    {
+      title: 'B2b',
+      sound: new Howl({
+        src: ['/audio/b2b.mp3'],
+        volume: 1,
+      }),
+    },
+    {
+      title: 'Dark Horse',
+      sound: new Howl({
+        src: ['/audio/darkHorse.mp3'],
+        volume: 1,
+      }),
+    },
+    {
+      title: 'TGIF',
+      sound: new Howl({
+        src: ['/audio/tgif.mp3'],
+        volume: 1,
+      }),
+    },
+    {
+      title: 'Horizon',
+      sound: new Howl({
+        src: ['/audio/horizon.mp3'],
         volume: 1,
       }),
     },
