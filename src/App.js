@@ -149,6 +149,13 @@ function App() {
         volume: 1,
       }),
     },
+    {
+      title: 'Rainin Fellas',
+      sound: new Howl({
+        src: ['/audio/raining_fellas.mp3'],
+        volume: 1,
+      }),
+    }
   ];
 
   const [selectedTracks, setSelectedTracks] = useState([tracks[0], tracks[1]]);
