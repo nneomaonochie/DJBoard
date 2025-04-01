@@ -155,6 +155,13 @@ function App() {
         src: ['/audio/raining_fellas.mp3'],
         volume: 1,
       }),
+    },
+    {
+      title: 'Level Up',
+      sound: new Howl({
+        src: ['/audio/levelUp.mp3'],
+        volume: 1,
+      }),
     }
   ];
 
