@@ -25,6 +25,7 @@ function App() {
     },
     {
       title: 'Whiplash',
+      bpm: 126,
       sound: new Howl({
         src: ['/audio/whiplash.mp3'],
         volume: 1,

@@ -68,3 +68,12 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+## Creating a Backend Flask Server
+Run `python -m venv venv` in the server directory
+Click Yes to create a new virtual environment
+Run `pip install flask librosa soundfile flask-cors`
+
+Activate: `python app.py`
+Deactivate: `deactivate`

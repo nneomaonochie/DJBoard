@@ -64,6 +64,10 @@ function TrackDeck({ track }) {
     currentSound.stop();
     const newSound = track.sound;
     setSound(newSound);
+
+    if (track.bpm && window.Tone) {
+      window.Tone.Transport.bpm.value = track.bpm;
+    }
   }, [track, sound]);
 
   const playTrack = () => {
@@ -81,6 +85,7 @@ function TrackDeck({ track }) {
   return (
     <div className="track-deck">
       <h3 className="track-title">{track.title}</h3>
+      {track.bpm && <p className="track-bpm">BPM: {track.bpm}</p>}
       <div className="record-container">
         <RotatingRecord track={track} />
       </div>
