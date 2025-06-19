@@ -163,6 +163,20 @@ function App() {
         src: ['/audio/levelUp.mp3'],
         volume: 1,
       }),
+    },
+    {
+      title: 'Diva',
+      sound: new Howl({
+        src: ['/audio/Diva.mp3'],
+        volume: 1,
+      }),
+    },
+    {
+      title: 'Little Nokia',
+      sound: new Howl({
+        src: ['/audio/LittleNokia.mp3'],
+        volume: 1,
+      }),
     }
   ];
 
