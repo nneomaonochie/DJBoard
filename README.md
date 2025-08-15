@@ -1,3 +1,7 @@
+# About the Project
+This is a DJ Board, where users can be their own DJ and remix their favorite songs together! 
+Link to sample video: https://youtu.be/mT7Gtn-s8X4?si=BWR9R3QFYRdze8Y_
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
